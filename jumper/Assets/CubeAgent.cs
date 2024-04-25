@@ -8,25 +8,28 @@ using Unity.MLAgents.Actuators;
 public class CubeAgent : Agent
 {
     public Transform Obstacle;
+    public Transform Obstacle2;
     public float jumpForce = 10f;
     Rigidbody rb;
+    public float obstacleMaxY = 0.55f;
+    public float obstacleMinY = 0.55f;
 
-    Rigidbody obstacleRb; // Rigidbody van het obstakel
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        obstacleRb = Obstacle.GetComponent<Rigidbody>();
+        
        
     }
 
     public override void OnEpisodeBegin()
     {
+       
         transform.localPosition = new Vector3(4f, 0.55f, 0f);
         transform.localRotation = Quaternion.identity;
         Obstacle.localPosition = new Vector3(-4f, Obstacle.localPosition.y, Obstacle.localPosition.z);
-        
-        
+    
+        Obstacle.localRotation = Quaternion.identity;
     }
     public override void CollectObservations(VectorSensor sensor)
     {
@@ -57,6 +60,7 @@ public class CubeAgent : Agent
             transform.rotation = Quaternion.Euler(0f, transform.rotation.eulerAngles.y, 0f);
             transform.position = new Vector3(transform.position.x, 0.5f, transform.position.z);
 
+
         }
 
         if(transform.position.y <= -1 )
@@ -69,9 +73,25 @@ public class CubeAgent : Agent
         // Reset the obstacle's position if it reaches the end of its path
         if (Obstacle.localPosition.x >= 5f)
         {
-            Obstacle.localPosition = new Vector3(-4f, 0.55f, 0f);
+            Obstacle.localPosition = new Vector3(-4f, Obstacle.localPosition.y, Obstacle.localPosition.z);
+            SetReward(1.0f);
+            EndEpisode();
         }
+
+        Obstacle.localPosition = new Vector3(
+            Obstacle.localPosition.x,
+            Mathf.Clamp(Obstacle.localPosition.y, obstacleMinY, obstacleMaxY),
+            0f); // Keep the Z position constant at 0
+
+        //beloning
+        if (Vector3.Distance(this.transform.localPosition, Obstacle.localPosition) < 1f)
+        {
+            SetReward(-1.0f);
+            EndEpisode();
+        }
+        
     }
+
     public override void Heuristic(in ActionBuffers actionsOut)
     {
         var continuousActionsOut = actionsOut.ContinuousActions;
