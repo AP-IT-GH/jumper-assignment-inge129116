@@ -11,8 +11,7 @@ public class CubeAgent : Agent
     public Transform Obstacle2;
     public float jumpForce = 10f;
     Rigidbody rb;
-    public float obstacleMaxY = 0.55f;
-    public float obstacleMinY = 0.55f;
+    private int vooruit;
 
 
     void Start()
@@ -28,14 +27,17 @@ public class CubeAgent : Agent
         transform.localPosition = new Vector3(4f, 0.55f, 0f);
         transform.localRotation = Quaternion.identity;
         Obstacle.localPosition = new Vector3(-4f, Obstacle.localPosition.y, Obstacle.localPosition.z);
-    
+        Obstacle2.localPosition = new Vector3(4f, Obstacle.localPosition.y, -10f);
+
         Obstacle.localRotation = Quaternion.identity;
+        vooruit = Random.Range(0, 9);
     }
     public override void CollectObservations(VectorSensor sensor)
     {
         // Agent positie
         sensor.AddObservation(this.transform.localPosition);
         sensor.AddObservation(Obstacle.localPosition);
+        sensor.AddObservation(Obstacle2.localPosition);
     }
 
     
@@ -45,8 +47,10 @@ public class CubeAgent : Agent
 
         if (jumpAction > 0.5f && transform.position.y <= 0.6)
         {
+            SetReward(-0.15f);
+
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            if(transform.position.y >= 2)
+            if(transform.position.y >= 3)
             {
 
                 rb.AddForce(-Vector3.up * jumpForce, ForceMode.Impulse);
@@ -67,28 +71,41 @@ public class CubeAgent : Agent
         {
             transform.localPosition = new Vector3(4f, 0.55f, 0f);
         }
-        float obstacleSpeed = 2f;
-        Obstacle.localPosition += Vector3.right * obstacleSpeed * Time.deltaTime;
-
-        // Reset the obstacle's position if it reaches the end of its path
-        if (Obstacle.localPosition.x >= 5f)
+        if (vooruit > 5)
         {
-            Obstacle.localPosition = new Vector3(-4f, Obstacle.localPosition.y, Obstacle.localPosition.z);
-            SetReward(1.0f);
-            EndEpisode();
+            float obstacleSpeed = Random.Range(1, 6); ;
+            Obstacle.localPosition += Vector3.right * obstacleSpeed * Time.deltaTime;
+
+            // Reset the obstacle's position if it reaches the end of its path
+            if (Obstacle.localPosition.x >= 5f)
+            {
+                Obstacle.localPosition = new Vector3(-4f, Obstacle.localPosition.y, Obstacle.localPosition.z);
+                SetReward(1.0f);
+                EndEpisode();
+            }
         }
+        else
+        {
+            float obstacleSpeed2 = Random.Range(1, 6); ;
 
-        Obstacle.localPosition = new Vector3(
-            Obstacle.localPosition.x,
-            Mathf.Clamp(Obstacle.localPosition.y, obstacleMinY, obstacleMaxY),
-            0f); // Keep the Z position constant at 0
+            Obstacle2.localPosition += Vector3.forward * obstacleSpeed2 * Time.deltaTime;
 
+            // Reset the obstacle's position if it reaches the end of its path
+            if (Obstacle2.localPosition.z >= 5f)
+            {
+                Obstacle2.localPosition = new Vector3(4f, Obstacle2.localPosition.y, -5);
+                SetReward(1.0f);
+                EndEpisode();
+            }
+        }
         //beloning
-        if (Vector3.Distance(this.transform.localPosition, Obstacle.localPosition) < 1f)
+        if (Vector3.Distance(this.transform.localPosition, Obstacle.localPosition) < 1f || Vector3.Distance(this.transform.localPosition, Obstacle2.localPosition) < 1f)
+
         {
             SetReward(-1.0f);
             EndEpisode();
         }
+
         
     }
 
