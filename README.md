@@ -18,12 +18,13 @@ het zou er zo uit moeten zien:
 
 5. voeg de twee obstacle's toe aan het script
 
-![alt text](image.png)
+![script](image.png)
 
 6. bekijk zeker de behavior parameters
 
-![alt text](image-1.png)
+![behavior parameters](image-1.png)
 
 7. gebruik anaconda om naar de juiste map te gaan en de agent te kunnen trainen en om het yaml bestand van de agent te kunnen toevoegen / nakijken. het helpt om in het begin van de training de straf voor springen hoger te zetten.
+8. dit is een voorbeeld resultaat van een training
 
 ![image](https://github.com/AP-IT-GH/jumper-assignment-inge129116/assets/113992394/1b06bf66-4bbb-44b4-9790-09ac744e40ed)
