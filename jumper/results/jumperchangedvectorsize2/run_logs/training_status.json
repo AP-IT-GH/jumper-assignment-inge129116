@@ -1,0 +1,56 @@
+{
+    "CubeAgent": {
+        "checkpoints": [
+            {
+                "steps": 17701,
+                "file_path": "results\\jumperchangedvectorsize2\\CubeAgent\\CubeAgent-17701.onnx",
+                "reward": null,
+                "creation_time": 1714134998.2504942,
+                "auxillary_file_paths": [
+                    "results\\jumperchangedvectorsize2\\CubeAgent\\CubeAgent-17701.pt"
+                ]
+            },
+            {
+                "steps": 150029,
+                "file_path": "results\\jumperchangedvectorsize2\\CubeAgent\\CubeAgent-150029.onnx",
+                "reward": 0.5,
+                "creation_time": 1714145860.8358178,
+                "auxillary_file_paths": [
+                    "results\\jumperchangedvectorsize2\\CubeAgent\\CubeAgent-150029.pt"
+                ]
+            },
+            {
+                "steps": 499991,
+                "file_path": "results\\jumperchangedvectorsize2\\CubeAgent\\CubeAgent-499991.onnx",
+                "reward": 1.9500000476837158,
+                "creation_time": 1714150153.8036838,
+                "auxillary_file_paths": [
+                    "results\\jumperchangedvectorsize2\\CubeAgent\\CubeAgent-499991.pt"
+                ]
+            },
+            {
+                "steps": 735622,
+                "file_path": "results\\jumperchangedvectorsize2\\CubeAgent\\CubeAgent-735622.onnx",
+                "reward": 1.850000023841858,
+                "creation_time": 1714152630.249693,
+                "auxillary_file_paths": [
+                    "results\\jumperchangedvectorsize2\\CubeAgent\\CubeAgent-735622.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 735622,
+            "file_path": "results\\jumperchangedvectorsize2\\CubeAgent.onnx",
+            "reward": 1.850000023841858,
+            "creation_time": 1714152630.249693,
+            "auxillary_file_paths": [
+                "results\\jumperchangedvectorsize2\\CubeAgent\\CubeAgent-735622.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.30.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}

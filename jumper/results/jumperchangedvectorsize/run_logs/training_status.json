@@ -1,0 +1,65 @@
+{
+    "CubeAgent": {
+        "checkpoints": [
+            {
+                "steps": 398915,
+                "file_path": "results\\jumperchangedvectorsize\\CubeAgent\\CubeAgent-398915.onnx",
+                "reward": null,
+                "creation_time": 1714130204.2004135,
+                "auxillary_file_paths": [
+                    "results\\jumperchangedvectorsize\\CubeAgent\\CubeAgent-398915.pt"
+                ]
+            },
+            {
+                "steps": 426965,
+                "file_path": "results\\jumperchangedvectorsize\\CubeAgent\\CubeAgent-426965.onnx",
+                "reward": -1.0,
+                "creation_time": 1714131012.239245,
+                "auxillary_file_paths": [
+                    "results\\jumperchangedvectorsize\\CubeAgent\\CubeAgent-426965.pt"
+                ]
+            },
+            {
+                "steps": 432980,
+                "file_path": "results\\jumperchangedvectorsize\\CubeAgent\\CubeAgent-432980.onnx",
+                "reward": 0.5,
+                "creation_time": 1714131708.7812188,
+                "auxillary_file_paths": [
+                    "results\\jumperchangedvectorsize\\CubeAgent\\CubeAgent-432980.pt"
+                ]
+            },
+            {
+                "steps": 436139,
+                "file_path": "results\\jumperchangedvectorsize\\CubeAgent\\CubeAgent-436139.onnx",
+                "reward": -1.0,
+                "creation_time": 1714131910.3612428,
+                "auxillary_file_paths": [
+                    "results\\jumperchangedvectorsize\\CubeAgent\\CubeAgent-436139.pt"
+                ]
+            },
+            {
+                "steps": 494451,
+                "file_path": "results\\jumperchangedvectorsize\\CubeAgent\\CubeAgent-494451.onnx",
+                "reward": null,
+                "creation_time": 1714132657.7111137,
+                "auxillary_file_paths": [
+                    "results\\jumperchangedvectorsize\\CubeAgent\\CubeAgent-494451.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 494451,
+            "file_path": "results\\jumperchangedvectorsize\\CubeAgent.onnx",
+            "reward": null,
+            "creation_time": 1714132657.7111137,
+            "auxillary_file_paths": [
+                "results\\jumperchangedvectorsize\\CubeAgent\\CubeAgent-494451.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.30.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}

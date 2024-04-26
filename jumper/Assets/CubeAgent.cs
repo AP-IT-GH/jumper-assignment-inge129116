@@ -30,14 +30,15 @@ public class CubeAgent : Agent
         Obstacle2.localPosition = new Vector3(4f, Obstacle2.localPosition.y, -10f);
         Obstacle2.localRotation = Quaternion.identity;
         Obstacle.localRotation = Quaternion.identity;
-        vooruit = 6; //Random.Range(0, 9);
+        vooruit =  Random.Range(0, 9);
     }
     public override void CollectObservations(VectorSensor sensor)
     {
         // Agent positie
         sensor.AddObservation(this.transform.localPosition);
-        sensor.AddObservation(Obstacle.localPosition);
         sensor.AddObservation(Obstacle2.localPosition);
+        sensor.AddObservation(Obstacle.localPosition);
+        
     }
 
     
@@ -47,7 +48,7 @@ public class CubeAgent : Agent
 
         if (jumpAction > 0.5f && transform.position.y <= 0.6)
         {
-            SetReward(-0.5f);
+            SetReward(-0.05f);
 
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             if(transform.position.y >= 3)
@@ -73,7 +74,7 @@ public class CubeAgent : Agent
         }
         if (vooruit < 5)
         {
-            float obstacleSpeed = Random.Range(1, 6); ;
+            float obstacleSpeed = Random.Range(3, 6); ;
             Obstacle.localPosition += Vector3.right * obstacleSpeed * Time.deltaTime;
 
             // Reset the obstacle's position if it reaches the end of its path
@@ -86,7 +87,7 @@ public class CubeAgent : Agent
         }
         else
         {
-            float obstacleSpeed2 = Random.Range(1, 6); ;
+            float obstacleSpeed2 = Random.Range(3, 6); ;
 
             Obstacle2.localPosition += Vector3.forward * obstacleSpeed2 * Time.deltaTime;
 
