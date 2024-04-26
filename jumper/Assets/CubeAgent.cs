@@ -27,10 +27,10 @@ public class CubeAgent : Agent
         transform.localPosition = new Vector3(4f, 0.55f, 0f);
         transform.localRotation = Quaternion.identity;
         Obstacle.localPosition = new Vector3(-4f, Obstacle.localPosition.y, Obstacle.localPosition.z);
-        Obstacle2.localPosition = new Vector3(4f, Obstacle.localPosition.y, -10f);
-
+        Obstacle2.localPosition = new Vector3(4f, Obstacle2.localPosition.y, -10f);
+        Obstacle2.localRotation = Quaternion.identity;
         Obstacle.localRotation = Quaternion.identity;
-        vooruit = Random.Range(0, 9);
+        vooruit = 6; //Random.Range(0, 9);
     }
     public override void CollectObservations(VectorSensor sensor)
     {
@@ -47,7 +47,7 @@ public class CubeAgent : Agent
 
         if (jumpAction > 0.5f && transform.position.y <= 0.6)
         {
-            SetReward(-0.15f);
+            SetReward(-0.5f);
 
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             if(transform.position.y >= 3)
@@ -71,7 +71,7 @@ public class CubeAgent : Agent
         {
             transform.localPosition = new Vector3(4f, 0.55f, 0f);
         }
-        if (vooruit > 5)
+        if (vooruit < 5)
         {
             float obstacleSpeed = Random.Range(1, 6); ;
             Obstacle.localPosition += Vector3.right * obstacleSpeed * Time.deltaTime;
@@ -80,7 +80,7 @@ public class CubeAgent : Agent
             if (Obstacle.localPosition.x >= 5f)
             {
                 Obstacle.localPosition = new Vector3(-4f, Obstacle.localPosition.y, Obstacle.localPosition.z);
-                SetReward(1.0f);
+                SetReward(2.0f);
                 EndEpisode();
             }
         }
