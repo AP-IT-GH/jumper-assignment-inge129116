@@ -1,0 +1,38 @@
+{
+    "CubeAgent": {
+        "checkpoints": [
+            {
+                "steps": 76551,
+                "file_path": "results\\jump_obstacle5\\CubeAgent\\CubeAgent-76551.onnx",
+                "reward": null,
+                "creation_time": 1724177283.591401,
+                "auxillary_file_paths": [
+                    "results\\jump_obstacle5\\CubeAgent\\CubeAgent-76551.pt"
+                ]
+            },
+            {
+                "steps": 141370,
+                "file_path": "results\\jump_obstacle5\\CubeAgent\\CubeAgent-141370.onnx",
+                "reward": 56.0,
+                "creation_time": 1724178002.5468512,
+                "auxillary_file_paths": [
+                    "results\\jump_obstacle5\\CubeAgent\\CubeAgent-141370.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 141370,
+            "file_path": "results\\jump_obstacle5\\CubeAgent.onnx",
+            "reward": 56.0,
+            "creation_time": 1724178002.5468512,
+            "auxillary_file_paths": [
+                "results\\jump_obstacle5\\CubeAgent\\CubeAgent-141370.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.30.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}

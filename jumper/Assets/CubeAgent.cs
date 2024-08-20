@@ -8,61 +8,47 @@ using Unity.MLAgents.Actuators;
 public class CubeAgent : Agent
 {
     public Transform Obstacle;
-    public Transform Obstacle2;
+    public Transform gift;
     public float jumpForce = 10f;
     Rigidbody rb;
     private int vooruit;
+    private float obstacleSpeed;
 
-
-    void Start()
-    {
-        rb = GetComponent<Rigidbody>();
+  
+   
         
        
-    }
+    
 
     public override void OnEpisodeBegin()
     {
-       
-        transform.localPosition = new Vector3(4f, 0.55f, 0f);
-        transform.localRotation = Quaternion.identity;
-        Obstacle.localPosition = new Vector3(-4f, Obstacle.localPosition.y, Obstacle.localPosition.z);
-        Obstacle2.localPosition = new Vector3(4f, Obstacle2.localPosition.y, -10f);
-        Obstacle2.localRotation = Quaternion.identity;
-        Obstacle.localRotation = Quaternion.identity;
-        vooruit =  Random.Range(0, 9);
+        rb = GetComponent<Rigidbody>();
+        transform.localPosition = new Vector3(20f, 0.55f, 0f);
+
+        startNewObstacle(Obstacle);
+
+
     }
     public override void CollectObservations(VectorSensor sensor)
     {
         // Agent positie
         sensor.AddObservation(this.transform.localPosition);
-        sensor.AddObservation(Obstacle2.localPosition);
-        sensor.AddObservation(Obstacle.localPosition);
+
         
     }
 
     
     public override void OnActionReceived(ActionBuffers actionBuffers)
     {
-        float jumpAction = actionBuffers.ContinuousActions[0];
-
-        if (jumpAction > 0.5f && transform.position.y <= 0.6)
+        int jumpAction = actionBuffers.DiscreteActions[0];
+        //Debug.Log("jumpAction: " + jumpAction); (als dit niet werkt discrete actie instellen in unity)
+        if (jumpAction == 1 && transform.position.y <= 0.6f)
         {
-            SetReward(-0.05f);
-
+            //SetReward(-0.2f);
+            
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            if(transform.position.y >= 3)
-            {
 
-                rb.AddForce(-Vector3.up * jumpForce, ForceMode.Impulse);
-                if (transform.position.y <= 0)
-                {
-                    rb.AddForce(Vector3.up*0, ForceMode.Impulse);
-
-
-                }
-            }
-            transform.rotation = Quaternion.Euler(0f, transform.rotation.eulerAngles.y, 0f);
+            transform.rotation = Quaternion.Euler(0f, -90f, 0f);
             transform.position = new Vector3(transform.position.x, 0.5f, transform.position.z);
 
 
@@ -74,46 +60,66 @@ public class CubeAgent : Agent
         }
         if (vooruit < 5)
         {
-            float obstacleSpeed = Random.Range(3, 6); ;
+            
             Obstacle.localPosition += Vector3.right * obstacleSpeed * Time.deltaTime;
 
             // Reset the obstacle's position if it reaches the end of its path
-            if (Obstacle.localPosition.x >= 5f)
+            if (Obstacle.localPosition.x >= (5f + transform.localPosition.x))
             {
-                Obstacle.localPosition = new Vector3(-4f, Obstacle.localPosition.y, Obstacle.localPosition.z);
-                SetReward(2.0f);
-                EndEpisode();
+                //Obstacle.localPosition = new Vector3(-4f, Obstacle.localPosition.y, Obstacle.localPosition.z);
+                SetReward(7.0f);
+                startNewObstacle(Obstacle);
             }
         }
         else
         {
-            float obstacleSpeed2 = Random.Range(3, 6); ;
 
-            Obstacle2.localPosition += Vector3.forward * obstacleSpeed2 * Time.deltaTime;
+            gift.localPosition += Vector3.right * obstacleSpeed * Time.deltaTime;
 
             // Reset the obstacle's position if it reaches the end of its path
-            if (Obstacle2.localPosition.z >= 5f)
+            if (gift.localPosition.x >= (5f + transform.localPosition.x))
             {
-                Obstacle2.localPosition = new Vector3(4f, Obstacle2.localPosition.y, -5);
-                SetReward(1.0f);
-                EndEpisode();
+                //Obstacle.localPosition = new Vector3(-4f, Obstacle.localPosition.y, Obstacle.localPosition.z);
+                //SetReward(2.0f);
+                startNewObstacle(gift);
             }
         }
-        //beloning
-        if (Vector3.Distance(this.transform.localPosition, Obstacle.localPosition) < 1f || Vector3.Distance(this.transform.localPosition, Obstacle2.localPosition) < 1f)
 
-        {
-            SetReward(-1.0f);
-            EndEpisode();
-        }
+
+
+    }
+    private void startNewObstacle(Transform Obstacles)
+    {
+        Obstacles.localPosition = new Vector3(-4f, Obstacles.localPosition.y, Obstacles.localPosition.z);
+        vooruit = Random.Range(0, 9);
+        obstacleSpeed = Random.Range(3, 6);
+    }
+
+    private void OnTriggerEnter(Collider obst)
+
+    {
 
         
+        if (obst.tag == "hindernis")
+        {
+            SetReward(-7.0f);
+            EndEpisode();
+            Debug.Log("hindernis");
+        }
+        if (obst.tag == "beloning")
+        {
+            SetReward(7f);
+            Debug.Log("beloning");
+        }
     }
+
 
     public override void Heuristic(in ActionBuffers actionsOut)
     {
-        var continuousActionsOut = actionsOut.ContinuousActions;
-        continuousActionsOut[0] = Input.GetKey(KeyCode.Space) ? 1f : 0f;
+        var discreteActionsOut = actionsOut.DiscreteActions;
+
+        // Als de spatiebalk wordt ingedrukt, stel actie 1 in (springen), anders actie 0 (geen actie)
+        discreteActionsOut[0] = Input.GetKey(KeyCode.Space) ? 1 : 0;
     }
 
 }
