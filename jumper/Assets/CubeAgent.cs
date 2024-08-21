@@ -44,7 +44,7 @@ public class CubeAgent : Agent
         //Debug.Log("jumpAction: " + jumpAction); (als dit niet werkt discrete actie instellen in unity)
         if (jumpAction == 1 && transform.position.y <= 0.6f)
         {
-            //SetReward(-0.2f);
+            SetReward(-0.2f);
             
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
 
@@ -63,10 +63,9 @@ public class CubeAgent : Agent
             
             Obstacle.localPosition += Vector3.right * obstacleSpeed * Time.deltaTime;
 
-            // Reset the obstacle's position if it reaches the end of its path
             if (Obstacle.localPosition.x >= (5f + transform.localPosition.x))
             {
-                //Obstacle.localPosition = new Vector3(-4f, Obstacle.localPosition.y, Obstacle.localPosition.z);
+                
                 SetReward(7.0f);
                 startNewObstacle(Obstacle);
             }
@@ -76,11 +75,9 @@ public class CubeAgent : Agent
 
             gift.localPosition += Vector3.right * obstacleSpeed * Time.deltaTime;
 
-            // Reset the obstacle's position if it reaches the end of its path
             if (gift.localPosition.x >= (5f + transform.localPosition.x))
             {
-                //Obstacle.localPosition = new Vector3(-4f, Obstacle.localPosition.y, Obstacle.localPosition.z);
-                //SetReward(2.0f);
+
                 startNewObstacle(gift);
             }
         }
@@ -104,12 +101,12 @@ public class CubeAgent : Agent
         {
             SetReward(-7.0f);
             EndEpisode();
-            Debug.Log("hindernis");
+
         }
         if (obst.tag == "beloning")
         {
             SetReward(7f);
-            Debug.Log("beloning");
+
         }
     }
 
