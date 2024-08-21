@@ -32,8 +32,6 @@ Het verschil kan hij zien via de tags van de objecten.
 
 ![agent met rays](https://github.com/AP-IT-GH/jumper-assignment-inge129116/blob/main/image_agent_rays.png)
 
-
-
 #### mogelijke acties en beloningen
 De agent heeft 2 mogelijke acties. Hij kan springen of niet springen. Dit werkt met discrete actions.
 
@@ -55,9 +53,9 @@ Hij wordt gestraft als:
 ### grafieken
 
 ![grafieken](https://github.com/AP-IT-GH/jumper-assignment-inge129116/blob/3fc35c366131040b947ae323281422999ee23105/grafieken.png)
-#### Cumulative Reward
+### Cumulative Reward
 Deze stijgt over het algemeen dit betekent dat de agent beter wordt.
-#### Episode Length
+### Episode Length
 De episode eindigt wanneer een hindernis geraakt wordt, dus hoe langer de lengte van een episode hoe beter de agent bezig is.
-#### Entropy
+### Entropy
 Dit is hoe onzeker de agent is. deze waarde daalt heel snel. dit komt overeen met de snel stijgende waarde in het begin bij de Cumulative Reward. bij een lage waarde voor entropy is de agent zeker van wat hij doet.
