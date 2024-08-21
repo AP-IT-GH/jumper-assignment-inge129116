@@ -59,3 +59,5 @@ Deze stijgt over het algemeen dit betekent dat de agent beter wordt.
 De episode eindigt wanneer een hindernis geraakt wordt, dus hoe langer de lengte van een episode hoe beter de agent bezig is.
 ### Entropy
 Dit is hoe onzeker de agent is. deze waarde daalt heel snel. dit komt overeen met de snel stijgende waarde in het begin bij de Cumulative Reward. bij een lage waarde voor entropy is de agent zeker van wat hij doet.
+### bespreking resultaat
+Het model leert in het begin heel snel. Daarna wordt het model zekerder en verandert het steeds minder. De waarde van de beloningen lijken nog niet perfect maar met deze training kan het model al goede resultaten halen. Hij springt over de meeste hindernissen en springt niet heel de tijd waardoor hij kan zien of er iets aankomt.
